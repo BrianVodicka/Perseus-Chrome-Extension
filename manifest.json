@@ -10,7 +10,9 @@
     "default_icon": "icon.png"
   },
   "web_accessible_resources": [
-    "myscript.js"
+    "myscript.js",
+    "xmlhttp.js",
+    "morph.js"
   ],
   "content_scripts": [{
     "matches": ["*://*.perseus.tufts.edu/*"],
