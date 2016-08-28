@@ -1,5 +1,18 @@
 var documents = new Array();
 
+var vocabHelpBoxHTML = '<div class="widget primary"> ' +
+  '<div class="header">Vocab Help</div>' +
+  '<div class="contents" id="vocabHelp" style="display:block;">' + 
+  
+  '</div>' +
+  '</div>';
+
+var vocabHelpBox  = document.createElement('div');
+vocabHelpBox.innerHTML = vocabHelpBoxHTML;
+
+var rightCol = document.getElementById('right_col');
+rightCol.insertBefore(vocabHelpBox, rightCol.firstChild);
+
 function m(src, which, docIndex) {
   var linkText = src.getAttribute('href');
   var originalText = linkText;
@@ -40,11 +53,21 @@ function getPopupWindowSrc(linkText, name) {
             var dictEntryHTML = $.parseHTML(newData);
             var entryContainer = $(dictEntryHTML).find('#text_main');
             var tmpContainer = $(entryContainer).find('.text')[0];
-            var targetText = $(tmpContainer).text().split('I');
-            var grammarParts = targetText[0];
-            var definition = targetText[1];
-            console.log(grammarParts);
-            console.log(definition);
+            var grammarParts = $(tmpContainer).clone().children().remove().end().text();
+            var word = $($(tmpContainer).find('span.la')[0]).find('a').text();
+            var definitions = $(tmpContainer).find('.lex_sense');
+            console.log(word + ' ' + grammarParts);
+            var vocabHelp = document.getElementById('vocabHelp');
+            for (var k = definitions.length-1; k >= 0; k--) {
+              var tmpDefinition = document.createElement("p");
+              tmpDefinition.innerHTML = $(definitions[k]).text();
+              console.log(tmpDefinition);
+               
+              vocabHelp.insertBefore(tmpDefinition, vocabHelp.firstChild);
+            }
+            var wordText = document.createElement("p");
+            wordText.innerHTML = word + ' ' + grammarParts;
+            vocabHelp.insertBefore(wordText, vocabHelp.firstChild);
           });
         }
       }
