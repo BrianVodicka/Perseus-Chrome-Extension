@@ -1,0 +1,20 @@
+{
+  "manifest_version": 2,
+
+  "name": "Perseus Transation Assitant",
+  "description": "Translate Latin faster on Perseus",
+  "version": "1.0",
+
+  "browser_action": {
+    "default_title": "Translate Latin faster on Perseus",
+    "default_icon": "icon.png"
+  },
+  "web_accessible_resources": [
+    "myscript.js"
+  ],
+  "content_scripts": [{
+    "matches": ["*://*.perseus.tufts.edu/*"],
+    "css": ["mystyle.css"],
+    "js": ["jquery.min.js", "contentScript.js"]
+  }]
+}
