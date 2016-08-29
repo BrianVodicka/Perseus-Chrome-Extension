@@ -1,3 +1,22 @@
+// control position of help boxes
+$(document).scroll(function() {
+  var doc = document.documentElement;
+  var top = (window.pageYOffset || doc.scrollTop)  - (doc.clientTop || 0);
+  console.log(top);
+  if (top > 140) {
+    //$('#right_col').css("position", "fixed");
+    $('#right_col').css("top", "10px");
+  } else {
+    //$('#right_col').css("position", "fixed");
+    $('#right_col').css("top", 150 - top + 'px');
+
+  }
+});
+
+$(document).ready(function() {
+  $('#right_col').css('height', window.innerHeight - 50 + 'px');
+});
+
 var documents = new Array();
 
 var vocabHelpBoxHTML = '<div class="widget primary"> ' +
@@ -22,20 +41,21 @@ function m(src, which, docIndex) {
       linkText = linkText + '&i=' + which;
     }
   }
-  clearHelpBox();
+  clearHelpBox("Loading...");
   getPopupWindowHTML(linkText, 'morph', function(theWindowSrc) {
     var definitions = findDefinitions(theWindowSrc);
     console.log(definitions);
+    if (definitions.length == 0) clearHelpBox("No Results"); 
     for (var x = 0; x < definitions.length; x++) {
       doDictSearch(definitions[x]); 
     }
   });
 }
 
-function clearHelpBox() {
+function clearHelpBox(message) {
   var vocabHelp = document.getElementById('vocabHelp');
   $(vocabHelp).empty();
-  var waitingText = document.createTextNode("Loading..."); 
+  var waitingText = document.createTextNode(message); 
   vocabHelp.appendChild(waitingText);
 }
 

@@ -2,3 +2,11 @@
   font-weight: bold;
   text-size: 15px;
 }
+
+#right_col {
+  position: fixed !important;
+  top: 150px;
+  overflow: scroll;
+  right: 0;
+  border: 1px solid red;
+}
