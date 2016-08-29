@@ -27,7 +27,7 @@ function m(src, which, docIndex) {
     var definitions = findDefinitions(theWindowSrc);
     console.log(definitions);
     for (var x = 0; x < definitions.length; x++) {
-      doDictSearch(definitions[x][2]); 
+      doDictSearch(definitions[x]); 
     }
   });
 }
@@ -59,7 +59,10 @@ function findDefinitions(srcPage) {
   return definitions;
 }
 
-function doDictSearch(links) {
+function doDictSearch(definitions) {
+  var word = definitions[0];
+  var definition = definitions[1];
+  var links = definitions[2];
   var vocabHelp = document.getElementById('vocabHelp');
   for (var j = 0; j < links.length; j++) {
     if ($(links[j]).text() == 'Lewis & Short') {
@@ -83,7 +86,7 @@ function doDictSearch(links) {
           vocabHelp.insertBefore(tmpDefinition, vocabHelp.firstChild);
         }
         var wordText = document.createElement("p");
-        wordText.innerHTML = word + ' ' + grammarParts;
+        wordText.innerHTML = '<p class="wordTitle">' + word + ' ' + grammarParts + ' ' + definition + '</p>';
         vocabHelp.insertBefore(wordText, vocabHelp.firstChild);
       });
     }
